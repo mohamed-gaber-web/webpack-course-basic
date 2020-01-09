@@ -1,26 +1,11 @@
 const path = require('path');
 
-/**
- * mode
- * entry
- * output
- * loaders
- */
-
-/**
- * [name]
- * [hash]
- * [contenthash]
- * [id]
- * [query]
- */
-
 module.exports = {
     // webpack configrations
     entry: {
         build: './src/app.js'
     }, // [] {engine: ''} file compile
-    mode: "development", // development - production[compress code]
+    mode: "development", // development - production[compress code] - none
     output: {
         // path: path.resolve(__dirname, 'build'),
         // filename: 'js/[name].js' // output file tp dist
@@ -37,11 +22,39 @@ module.exports = {
                 use: [
                   // Creates `style` nodes from JS strings
                   'style-loader',
+                  'css-loader',
                   // Compiles Sass to CSS
                   'sass-loader',
                 ],
             },
+            { // babel compile js 
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: 'babel-loader',
+                  options: {
+                    presets: ['@babel/preset-env'],
+                    plugins: ['transform-class-properties']
+                  }
+                }
+            }
         ]
     }
 
 }
+
+
+/**
+ * mode
+ * entry
+ * output
+ * loaders
+ */
+
+/**
+ * [name]
+ * [hash]
+ * [contenthash]
+ * [id]
+ * [query]
+ */
