@@ -5,3 +5,4 @@ const component = new Component();
 
 component.render();
 component.addBtnElement();
+component.changeText();

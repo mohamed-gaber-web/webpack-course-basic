@@ -23,6 +23,15 @@ class Component {
  
     }
 
+    changeText = () => {
+        const pElement = document.querySelector('h1');
+        const button = document.querySelector('button');
+        button.addEventListener('click', () => {
+            pElement.innerHTML = "Changed Done !"
+        })
+        
+    }
+
 }
 
 export default Component;
