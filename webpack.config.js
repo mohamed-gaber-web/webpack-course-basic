@@ -49,11 +49,20 @@ module.exports = {
                   {
                     loader: 'file-loader',
                     options: {
-                        publicPath: 'dist',
+                        esModule: false,
+                        name: '[name].[ext]',
+                        outputPath: 'src/',
+                        publicPath: 'src/',
                       },
                   },
                 ],
               },
+              {
+                test: /\.(html)$/,
+                use: {
+                  loader: 'html-loader'
+                }
+              }
         ]
     },
     plugins: [ // plugins
@@ -64,7 +73,6 @@ module.exports = {
       new HtmlWebpackPlugin({
       template: './src/index.html'
       }) // npm i --save-dev html-webpack-plugin
-
 
     ]
 
