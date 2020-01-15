@@ -1,4 +1,9 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // CONVERT CSS TO FILE 
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // CLEAN FOLDER FILES
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // HTML COMILER
+
+
 
 module.exports = {
     // webpack configrations
@@ -11,17 +16,17 @@ module.exports = {
         // filename: 'js/[name].js' // output file tp dist
         filename: 'build.js'
     },
-    module: { 
+    module: { // Loaders
         rules: [
             { // use loaders
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader'], // loader css [ css-loader / style-loader ]
+                use: [MiniCssExtractPlugin.loader, 'css-loader'], // loader css [ css-loader / style-loader ]
             },
             { // sass Loader
                 test: /\.s[ac]ss$/i,
                 use: [
                   // Creates `style` nodes from JS strings
-                  'style-loader',
+                  MiniCssExtractPlugin.loader,
                   'css-loader',
                   // Compiles Sass to CSS
                   'sass-loader',
@@ -37,9 +42,31 @@ module.exports = {
                     plugins: ['transform-class-properties']
                   }
                 }
-            }
+            },
+            { // files images loaders
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                        publicPath: 'dist',
+                      },
+                  },
+                ],
+              },
         ]
-    }
+    },
+    plugins: [ // plugins
+      new MiniCssExtractPlugin({
+        filename: 'style.[contenthash].css'
+      }), // npm install --save-dev mini-css-extract-plugin 
+      new CleanWebpackPlugin(), // npm install --save-dev clean-webpack-plugin
+      new HtmlWebpackPlugin({
+      template: './src/index.html'
+      }) // npm i --save-dev html-webpack-plugin
+
+
+    ]
 
 }
 
@@ -54,7 +81,7 @@ module.exports = {
 /**
  * [name]
  * [hash]
- * [contenthash]
+ * [contenthash] use to cashing and add random string to file 
  * [id]
  * [query]
  */

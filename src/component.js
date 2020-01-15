@@ -22,6 +22,14 @@ class Component {
         divElement.append(btn);
  
     }
+    // addImageElement() {
+    //     const imgElement = document.createElement('img');
+    //     imgElement.alt = "userImage";
+    //     imgElement.src =this.user;
+    //     const body = document.body;
+    //     body.append(imgElement);
+
+    // }
 
     changeText = () => {
         const pElement = document.querySelector('h1');
